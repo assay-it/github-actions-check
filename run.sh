@@ -22,7 +22,7 @@ NUMBER=$(jq '.number' < ${GITHUB_EVENT_PATH})
 TITLE=$(jq '.pull_request.title' < ${GITHUB_EVENT_PATH})
 
 assay \
-  -api $1 -secret $2 \
+  -api latest.assay.it  -secret $1 \
   -head ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA} \
   -base ${BASE_SRC}/${BASE_REF}/${BASE_SHA} \
   -number ${NUMBER} \

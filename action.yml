@@ -4,13 +4,8 @@ input:
   secret:
     description: 'secret token to access assay.it'
     required: true
-  api:
-    description: 'api endpoint of assay.it'
-    required: true
-    default: 'latest.assay.it'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.api }}
     - ${{ inputs.secret }}

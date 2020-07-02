@@ -2,6 +2,8 @@
 
 env
 
+cat ${GITHUB_EVENT_PATH}
+
 # /go/bin/assay \
 #   -api latest.assay.it \
 #   -secret $1 \

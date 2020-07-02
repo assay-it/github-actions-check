@@ -4,13 +4,29 @@ input:
   secret:
     description: 'secret token to access assay.it'
     required: true
-    default: ''
+    default: ""
+  head:
+    description: 'reference to head of pull request'
+    required: true
+    default: "${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}/${{ github.event.pull_request.head.sha }}"
+  base:
+    description: 'reference to base of pull request'
+    required: true
+    default: "${{ github.event.pull_request.base.repo.full_name }}/${{ github.event.pull_request.base.ref }}/${{ github.event.pull_request.base.sha }}"
+  number:
+    description: 'pull request number'
+    required: true
+    default: "${{ github.event.number }}"
+  title:
+    description: 'pull request title'
+    required: true
+    default: "${{ github.event.pull_request.title }}"
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.secret }}
-    - ${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}/${{ github.event.pull_request.head.sha }}
-    - ${{ github.event.pull_request.base.repo.full_name }}/${{ github.event.pull_request.base.ref }}/${{ github.event.pull_request.base.sha }}
-    - ${{ github.event.number }}
-    - "${{ github.event.pull_request.title }}"
+    - ${{ inputs.head }}
+    - ${{ inputs.base }}
+    - ${{ inputs.number }}
+    - ${{ inputs.title }}

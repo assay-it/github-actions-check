@@ -10,16 +10,16 @@ then
   exit 128
 fi
 
-HEAD_SRC=$(jq '.pull_request.head.repo.full_name' < ${GITHUB_EVENT_PATH})
-HEAD_REF=$(jq '.pull_request.head.ref' < ${GITHUB_EVENT_PATH})
-HEAD_SHA=$(jq '.pull_request.head.sha' < ${GITHUB_EVENT_PATH})
+HEAD_SRC=$(jq -r '.pull_request.head.repo.full_name' < ${GITHUB_EVENT_PATH})
+HEAD_REF=$(jq -r '.pull_request.head.ref' < ${GITHUB_EVENT_PATH})
+HEAD_SHA=$(jq -r '.pull_request.head.sha' < ${GITHUB_EVENT_PATH})
 
-BASE_SRC=$(jq '.pull_request.base.repo.full_name' < ${GITHUB_EVENT_PATH})
-BASE_REF=$(jq '.pull_request.base.ref' < ${GITHUB_EVENT_PATH})
-BASE_SHA=$(jq '.pull_request.base.sha' < ${GITHUB_EVENT_PATH})
+BASE_SRC=$(jq -r '.pull_request.base.repo.full_name' < ${GITHUB_EVENT_PATH})
+BASE_REF=$(jq -r '.pull_request.base.ref' < ${GITHUB_EVENT_PATH})
+BASE_SHA=$(jq -r '.pull_request.base.sha' < ${GITHUB_EVENT_PATH})
 
-NUMBER=$(jq '.number' < ${GITHUB_EVENT_PATH})
-TITLE=$(jq '.pull_request.title' < ${GITHUB_EVENT_PATH})
+NUMBER=$(jq -r '.number' < ${GITHUB_EVENT_PATH})
+TITLE=$(jq -r '.pull_request.title' < ${GITHUB_EVENT_PATH})
 
 echo "==> base: ${BASE_SRC}/${BASE_REF}/${BASE_SHA}"
 echo "==> head: ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA}"

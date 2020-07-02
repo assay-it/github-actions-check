@@ -4,15 +4,14 @@ input:
   secret:
     description: 'secret token to access assay.it'
     required: true
-    default: ""
   head:
     description: 'reference to head of pull request'
     required: true
-    default: "${{ github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}/${{ github.event.pull_request.head.sha }}"
+    default: "${{ context.github.event.pull_request.head.repo.full_name }}/${{ github.event.pull_request.head.ref }}/${{ github.event.pull_request.head.sha }}"
   base:
     description: 'reference to base of pull request'
     required: true
-    default: "${{ github.event.pull_request.base.repo.full_name }}/${{ github.event.pull_request.base.ref }}/${{ github.event.pull_request.base.sha }}"
+    default: "${{ context.event.pull_request.base.repo.full_name }}/${{ github.event.pull_request.base.ref }}/${{ github.event.pull_request.base.sha }}"
   number:
     description: 'pull request number'
     required: true

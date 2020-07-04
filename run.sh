@@ -34,4 +34,4 @@ assay \
   -head ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA} \
   -base ${BASE_SRC}/${BASE_REF}/${BASE_SHA} \
   -number ${NUMBER} \
-  -title ${TITLE}
+  -title "${TITLE}"

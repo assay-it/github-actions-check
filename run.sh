@@ -29,7 +29,7 @@ echo "==> head: ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA}"
 ##
 ##
 assay \
-  -api latest.assay.it \
+  -api api.assay.it \
   -secret $1 \
   -head ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA} \
   -base ${BASE_SRC}/${BASE_REF}/${BASE_SHA} \

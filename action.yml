@@ -1,11 +1,12 @@
 name: 'assay.it webhook'
 description: 'the action triggers quality assessment at assay.it'
-input:
+inputs:
   secret:
     description: 'secret token to access assay.it'
     required: true
+  target:
+    description: 'url or other identity of target system to execute a quality assurance'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.secret }}

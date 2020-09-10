@@ -16,7 +16,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: assay-it/github-actions-webhook@v1
+      - uses: assay-it/github-actions-webhook@latest
         with:
           secret: ${{ secrets.ASSAY_SECRET_KEY }}
 ```

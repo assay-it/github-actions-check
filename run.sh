@@ -29,9 +29,10 @@ echo "==> head: ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA}"
 ##
 ##
 assay \
-  -api api.assay.it \
-  -secret $1 \
-  -head ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA} \
-  -base ${BASE_SRC}/${BASE_REF}/${BASE_SHA} \
-  -number ${NUMBER} \
-  -title "${TITLE}"
+  webhook \
+  --api api.assay.it \
+  --key ${INPUT_SECRET} \
+  --head ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA} \
+  --base ${BASE_SRC}/${BASE_REF}/${BASE_SHA} \
+  --number ${NUMBER} \
+  --title "${TITLE}"

@@ -28,6 +28,9 @@ echo "==> head: ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA}"
 
 opts=${INPUT_TARGET:+--url $INPUT_TARGET}
 
+echo "==> opts: ${opts}"
+echo "==> ${INPUT_TARGET}"
+
 ##
 ##
 assay \

@@ -26,6 +26,8 @@ TITLE=$(jq -r '.pull_request.title' < ${GITHUB_EVENT_PATH})
 echo "==> base: ${BASE_SRC}/${BASE_REF}/${BASE_SHA}"
 echo "==> head: ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA}"
 
+opts=${INPUT_TARGET:+--url $INPUT_TARGET}
+
 ##
 ##
 assay \
@@ -35,4 +37,5 @@ assay \
   --head ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA} \
   --base ${BASE_SRC}/${BASE_REF}/${BASE_SHA} \
   --number ${NUMBER} \
-  --title "${TITLE}"
+  --title "${TITLE}" \
+  $opts

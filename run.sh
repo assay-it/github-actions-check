@@ -30,7 +30,7 @@ echo "==> head: ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA}"
 ##
 assay \
   webhook \
-  --api api.assay.it \
+  --api ${INPUT_API} \
   --key ${INPUT_SECRET} \
   --head ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA} \
   --base ${BASE_SRC}/${BASE_REF}/${BASE_SHA} \

@@ -7,6 +7,10 @@ inputs:
   target:
     description: 'url or other identity of target system to execute a quality assurance'
     required: false
+  api:
+    description:
+    required: false
+    default: 'api.assay.it'
 runs:
   using: 'docker'
   image: 'Dockerfile'

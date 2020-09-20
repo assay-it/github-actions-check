@@ -19,4 +19,6 @@ jobs:
       - uses: assay-it/github-actions-webhook@latest
         with:
           secret: ${{ secrets.ASSAY_SECRET_KEY }}
+          target: http://api.example.com
 ```
+

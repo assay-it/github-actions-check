@@ -2,6 +2,9 @@
 set -eu
 export PATH=$PATH:/go/bin
 
+##
+## common opts
+opts=${INPUT_TARGET:+--url $INPUT_TARGET}
 
 ##
 ##
@@ -20,8 +23,6 @@ webhook_branch () {
   echo "==> base: ${BASE_SRC}/${BASE_REF}/${BASE_SHA}"
   echo "==> head: ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA}"
 
-  opts=${INPUT_TARGET:+--url $INPUT_TARGET}
-
   assay \
     webhook branch \
     --api ${INPUT_API} \
@@ -36,7 +37,22 @@ webhook_branch () {
 ##
 ##
 webhook_commit () {
-  cat ${GITHUB_EVENT_PATH}
+  SRC=$(jq -r '.repository.full_name' < ${GITHUB_EVENT_PATH})
+  REF=$(basename $(jq -r '.ref' < ${GITHUB_EVENT_PATH}))
+  SHA=$(jq -r '.after' < ${GITHUB_EVENT_PATH})
+
+  NUMBER=$(echo $(jq -r '.head_commit.id' < ${GITHUB_EVENT_PATH}) | cut -c1-7)
+  TITLE=$(jq -r '.head_commit.message' < ${GITHUB_EVENT_PATH})
+
+  echo "==> base: ${SRC}/${REF}/${SHA}"
+
+  assay \
+    webhook commit \
+    --api ${INPUT_API} \
+    --key ${INPUT_SECRET} \
+    --number ${NUMBER} \
+    --title "${TITLE}" \
+    $opts ${SRC}/${REF}/${SHA}
 }
 
 
@@ -48,7 +64,7 @@ case "${GITHUB_EVENT_NAME}" in
     webhook_commit
     ;;
   *)
+    cat ${GITHUB_EVENT_PATH}
     echo "Event ${GITHUB_EVENT_NAME} is not supported by the action"
     exit 128
 esac
-

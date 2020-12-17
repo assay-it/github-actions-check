@@ -65,7 +65,7 @@ webhook_release () {
   echo "==> commit: ${SRC}/${REF}/${SHA}"
 
   assay \
-    webhook commit \
+    webhook release \
     --api ${INPUT_API} \
     --key ${INPUT_SECRET} \
     --number ${SHA} \
@@ -85,7 +85,6 @@ case "${GITHUB_EVENT_NAME}" in
     webhook_release
     ;;
   *)
-    cat ${GITHUB_EVENT_PATH}
     echo "Event ${GITHUB_EVENT_NAME} is not supported by the action"
     exit 128
 esac

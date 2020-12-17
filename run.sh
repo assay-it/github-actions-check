@@ -24,7 +24,7 @@ webhook_pull_request () {
   echo "==> head: ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA}"
 
   assay \
-    webhook branch \
+    webhook \
     --api ${INPUT_API} \
     --key ${INPUT_SECRET} \
     --head ${HEAD_SRC}/${HEAD_REF}/${HEAD_SHA} \

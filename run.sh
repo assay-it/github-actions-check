@@ -1,6 +1,6 @@
 #!/bin/sh -l
 # set -eu
-export PATH=$PATH:/go/bin
+export PATH=$PATH:/go/bin:/usr/local/go/bin
 
 cd $GITHUB_WORKSPACE
 [[ ! -z $INPUT_WORKING_DIRECTORY ]] && cd $INPUT_WORKING_DIRECTORY

@@ -1,5 +1,5 @@
 #!/bin/sh -l
-set -eu
+# set -eu
 export PATH=$PATH:/go/bin
 
 cd $GITHUB_WORKSPACE

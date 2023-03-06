@@ -7,12 +7,13 @@ inputs:
       This is useful when dealing with multiple projects within one repository.
     required: false
     default: "."
+  target:
+    description: 'url or other identity of target system to execute a quality assurance'
+    required: false
+
   # secret:
   #   description: 'secret token to access assay.it'
   #   required: true
-  # target:
-  #   description: 'url or other identity of target system to execute a quality assurance'
-  #   required: false
   # api:
   #   description:
   #   required: false

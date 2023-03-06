@@ -1,16 +1,22 @@
 name: 'assay.it webhook'
-description: 'the action triggers quality assessment at assay.it'
+description: 'the action triggers quality assessment, see https://assay.it'
 inputs:
-  secret:
-    description: 'secret token to access assay.it'
-    required: true
-  target:
-    description: 'url or other identity of target system to execute a quality assurance'
+  working-directory:
+    description: |
+      Path to the working directory assay-it should be executed in.
+      This is useful when dealing with multiple projects within one repository.
     required: false
-  api:
-    description:
-    required: false
-    default: 'api.assay.it'
+    default: "."
+  # secret:
+  #   description: 'secret token to access assay.it'
+  #   required: true
+  # target:
+  #   description: 'url or other identity of target system to execute a quality assurance'
+  #   required: false
+  # api:
+  #   description:
+  #   required: false
+  #   default: 'api.assay.it'
 runs:
   using: 'docker'
   image: 'Dockerfile'

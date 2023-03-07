@@ -1,16 +1,13 @@
-# assay.it webhook
+# assay-it check action
 
-The action triggers quality assessment job at https://assay.it
+This actions runs [assay-it](https://assay.it) to test cloud apps in production, confirm quality & eliminate risk.
 
 ## Usage
 
-See [action.yml](action.yml)
-
-Supported triggers:
-* pull_request
+At its simplest, just add `assay-it/github-actions-check` as a step in your existing workflow. A minimal workflow might look like this:
 
 ```yaml
-on: [pull_request]
+on: ["push", "pull_request"]
 
 jobs:
   test:
@@ -18,7 +15,7 @@ jobs:
     steps:
       - uses: assay-it/github-actions-check@latest
         with:
-          secret: ${{ secrets.ASSAY_SECRET_KEY }}
-          target: http://api.example.com
+          system-under-test: "http://example.com"
 ```
 
+See https://assay-it, it depicts a more advanced example that runs deployment, pull request checks, etc.

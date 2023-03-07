@@ -33,7 +33,7 @@ runs:
         go-version: "1.20.x"
     - env:
         version: ${{ inputs.version }}
-        sut: ${{ input.system-under-test }}
+        sut: ${{ inputs.system-under-test }}
       working-directory: ${{ inputs.working-directory }}
       run: |
         curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64

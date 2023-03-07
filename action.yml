@@ -5,7 +5,7 @@ inputs:
     description: |
       The version of assay-it to use.
     required: true
-    default: 1.0.4
+    default: 1.0.5
   install-go:
     description: |
       Golang is required for running assay-it. 
@@ -20,8 +20,15 @@ inputs:
     required: false
     default: ""
   system-under-test:
-    description: 'url or other identity of target system to execute a quality checks'
+    description: |
+      Url of target system to execute a quality checks.
+      It shall start with protocol scheme (e.g. https://assay.it) 
+    required: true
+  verbose:
+    description: |
+      Verbose output of unit tests
     required: false
+    default: false
 
 runs:
   using: "composite"
@@ -34,9 +41,11 @@ runs:
     - env:
         version: ${{ inputs.version }}
         sut: ${{ inputs.system-under-test }}
+        verbose: ${{ inputs.verbose }}
       working-directory: ${{ inputs.working-directory }}
       run: |
         curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64
         chmod +x $(go env GOPATH)/bin/assay-it
-        INPUT_TARGET=${sut} $(go env GOPATH)/bin/assay-it test
+        opts=${verbose:+-v}
+        $(go env GOPATH)/bin/assay-it test -sut ${sut} ${opts}
       shell: bash

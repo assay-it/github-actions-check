@@ -39,3 +39,4 @@ runs:
         curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64
         chmod +x $(go env GOPATH)/bin/assay-it/assay-it
         INPUT_TARGET=${sut} $(go env GOPATH)/bin/assay-it test
+      shell: bash

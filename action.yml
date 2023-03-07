@@ -46,6 +46,12 @@ runs:
       run: |
         curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64
         chmod +x $(go env GOPATH)/bin/assay-it
-        opts=${verbose:+-v}
-        $(go env GOPATH)/bin/assay-it test --sut ${sut} ${opts}
+
+        opts=(
+          --sut ${sut}
+        )
+        if [[ "${verbose}" == "true" ]]; then
+          opts+=(-v)
+        fi
+        $(go env GOPATH)/bin/assay-it test "${opts[@]}"
       shell: bash

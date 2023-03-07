@@ -1,23 +1,41 @@
-name: 'assay.it webhook'
-description: 'the action triggers quality assessment, see https://assay.it'
+name: 'assay-it'
+description: 'Test Cloud Apps in Production. Confirm Quality & Eliminate Risk with https://assay.it'
 inputs:
+  version:
+    description: |
+      The version of assay-it to use.
+    required: true
+    default: "latest"
+  install-go:
+    description: |
+      Golang is required for running assay-it. 
+      If set to false, the action expects you to have installed Go already.
+    required: true
+    default: true
   working-directory:
     description: |
       Path to the working directory assay-it should be executed in.
+      If skipped, the action uses $GITHUB_WORKSPACE.
       This is useful when dealing with multiple projects within one repository.
     required: false
-    default: "."
-  target:
-    description: 'url or other identity of target system to execute a quality assurance'
+    default: ""
+  system-under-test:
+    description: 'url or other identity of target system to execute a quality checks'
     required: false
 
-  # secret:
-  #   description: 'secret token to access assay.it'
-  #   required: true
-  # api:
-  #   description:
-  #   required: false
-  #   default: 'api.assay.it'
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "composite"
+  steps:
+    - id: install_go
+      if: ${{ inputs.install-go != 'false' }}
+      uses: WillAbides/setup-go-faster@v1.8.0
+      with:
+        go-version: "1.20.x"
+    - env:
+        version: ${{ inputs.version }}
+        sut: ${{ input.system-under-test }}
+      working-directory: ${{ inputs.working-directory }}
+      run: |
+        curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64
+        chmod +x $(go env GOPATH)/bin/assay-it/assay-it
+        INPUT_TARGET=${sut} $(go env GOPATH)/bin/assay-it test

@@ -46,7 +46,7 @@ runs:
       run: |
         curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64
         chmod +x $(go env GOPATH)/bin/assay-it
-
+        go env
         opts=(
           -t ${sut}
         )

@@ -5,7 +5,7 @@ inputs:
     description: |
       The version of assay-it to use.
     required: true
-    default: "1.1.1"
+    default: "1.1.2"
   install-go:
     description: |
       Golang is required for running assay-it. 
@@ -46,13 +46,12 @@ runs:
       run: |
         curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64
         chmod +x $(go env GOPATH)/bin/assay-it
-        go env
+
         opts=(
           -t ${sut}
         )
         if [[ "${verbose}" == "true" ]]; then
           opts+=(-v)
         fi
-        $(go env GOPATH)/bin/assay-it test "${opts[@]}" || echo "ok"
-        cat /home/runner/work/blueprint-serverless-golang/blueprint-serverless-golang/suites/assay-it/runner.go
+        $(go env GOPATH)/bin/assay-it test "${opts[@]}"
       shell: bash

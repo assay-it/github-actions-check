@@ -5,7 +5,7 @@ inputs:
     description: |
       The version of assay-it to use.
     required: true
-    default: "v1.0.6"
+    default: "1.1.1"
   install-go:
     description: |
       Golang is required for running assay-it. 
@@ -44,13 +44,11 @@ runs:
         verbose: ${{ inputs.verbose }}
       working-directory: ${{ inputs.working-directory }}
       run: |
-        curl -L -o assay-it.tag.gz https://github.com/assay-it/assay-it/releases/download/${version}/assay-it_Linux_x86_64.tar.gz
-        tar -xvf assay-it.tag.gz
-        mv assay-it $(go env GOPATH)/bin/assay-it
-        rm assay-it.tag.gz
+        curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64
+        chmod +x $(go env GOPATH)/bin/assay-it
 
         opts=(
-          --sut ${sut}
+          -t ${sut}
         )
         if [[ "${verbose}" == "true" ]]; then
           opts+=(-v)

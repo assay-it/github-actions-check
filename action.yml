@@ -69,7 +69,7 @@ runs:
           opts+=(${command})
         fi
 
-        opts=+(-t ${sut})
+        opts+=(-t ${sut})
 
         if [[ "${verbose}" == "true" ]];
         then

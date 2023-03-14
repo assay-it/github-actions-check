@@ -30,7 +30,7 @@ inputs:
       or uses 'eval' command for other runtime. It automatically detects the
       mode depending on the project runtime. The option force the command 
     required: false
-     default: ""
+    default: ""
   verbose:
     description: |
       Verbose output of unit tests

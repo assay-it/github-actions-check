@@ -57,7 +57,7 @@ runs:
 
         opts=()
 
-        if [[ "${force-command}" == "" ]];
+        if [[ -z ${command} ]];
         then
           if [[ -f "go.mod" ]];
           then

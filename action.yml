@@ -24,6 +24,13 @@ inputs:
       Url of target system to execute a quality checks.
       It shall start with protocol scheme (e.g. https://assay.it) 
     required: true
+  force-command:
+    description: |
+      assay-it uses either 'test' command for quality checks of golang modules
+      or uses 'eval' command for other runtime. It automatically detects the
+      mode depending on the project runtime. The option force the command 
+    required: false
+     default: ""
   verbose:
     description: |
       Verbose output of unit tests
@@ -40,18 +47,34 @@ runs:
         go-version: "1.20.x"
     - env:
         version: ${{ inputs.version }}
-        sut: ${{ inputs.system-under-test }}
+        system-under-test: ${{ inputs.system-under-test }}
         verbose: ${{ inputs.verbose }}
+        force-command: ${{ inputs.force-command }}
       working-directory: ${{ inputs.working-directory }}
       run: |
         curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64
         chmod +x $(go env GOPATH)/bin/assay-it
 
-        opts=(
-          -t ${sut}
-        )
-        if [[ "${verbose}" == "true" ]]; then
+        opts=()
+
+        if [[ "${force-command}" == "" ]];
+        then
+          if [[ -f "go.mod" ]];
+          then
+            opts+=(test)
+          else
+            opts+=(eval)
+          fi
+        else
+          opts+=(${system-under-test})
+        fi
+
+        opts=+(-t ${system-under-test})
+
+        if [[ "${verbose}" == "true" ]];
+        then
           opts+=(-v)
         fi
-        $(go env GOPATH)/bin/assay-it test "${opts[@]}"
+
+        $(go env GOPATH)/bin/assay-it "${opts[@]}"
       shell: bash

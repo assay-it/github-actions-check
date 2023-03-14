@@ -47,9 +47,9 @@ runs:
         go-version: "1.20.x"
     - env:
         version: ${{ inputs.version }}
-        system-under-test: ${{ inputs.system-under-test }}
+        sut: ${{ inputs.system-under-test }}
         verbose: ${{ inputs.verbose }}
-        force-command: ${{ inputs.force-command }}
+        command: ${{ inputs.force-command }}
       working-directory: ${{ inputs.working-directory }}
       run: |
         curl -L -o $(go env GOPATH)/bin/assay-it https://github.com/assay-it/assay-it/releases/download/v${version}/assay-it_${version}_linux_amd64
@@ -66,10 +66,10 @@ runs:
             opts+=(eval)
           fi
         else
-          opts+=(${system-under-test})
+          opts+=(${command})
         fi
 
-        opts=+(-t ${system-under-test})
+        opts=+(-t ${sut})
 
         if [[ "${verbose}" == "true" ]];
         then
